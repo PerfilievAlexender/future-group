@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getSmallData, selectColumn, sortRows} from '../../action-creators'
+import {getSmallData, selectColumn, showUserForm, sortRows} from '../../action-creators'
 import {filteredRows, sortOrder, loadingData} from '../../selectors';
 import Row from '../row';
 import Loader from '../loader';
 import {INCREASE, DECREASE} from '../../constants';
 import './style.css';
-
+import AddUserForm from "../addUserForm";
 
 class Table extends Component {
 
@@ -24,33 +24,39 @@ class Table extends Component {
         if (loading) return <Loader/>;
 
         return (
-            <table className='table'>
-                <thead>
+            <section className='table-wrapper'>
+                <AddUserForm/>
+                <button
+                    onClick={this.onShowAddUserForm}
+                >Добавить</button>
+                <table className='table'>
+                    <thead>
                     <tr onClick = {this.onHandleClickSort}>
                         <th><button
-                                value = 'id'
-                            >id</button>
+                            value = 'id'
+                        >id</button>
                         </th>
                         <th><button
-                                value = 'firstName'
-                            >firstName</button>
+                            value = 'firstName'
+                        >firstName</button>
                         </th>
                         <th><button
-                                value = 'lastName'
-                            >lastName</button>
+                            value = 'lastName'
+                        >lastName</button>
                         </th>
                         <th><button
-                                value = 'email'
-                            >email</button>
+                            value = 'email'
+                        >email</button>
                         </th>
                         <th><button
-                                value = 'phone'
-                            >phone</button>
+                            value = 'phone'
+                        >phone</button>
                         </th>
                     </tr>
                     {rows}
-                </thead>
-            </table>
+                    </thead>
+                </table>
+            </section>
         );
     };
 
@@ -61,6 +67,11 @@ class Table extends Component {
 
         selectColumn(evt.target.value, sortOrderColumn);
         sortRows(data)
+    };
+
+    onShowAddUserForm = () => {
+        const {showUserForm} = this.props;
+        showUserForm()
     };
 
     componentDidMount() {
@@ -77,5 +88,5 @@ export default connect(
         sortOrder: sortOrder(store),
         loading: loadingData(store)
     }),
-    {getSmallData, selectColumn, sortRows}
+    {getSmallData, selectColumn, sortRows, showUserForm}
 )(Table);

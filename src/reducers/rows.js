@@ -1,5 +1,5 @@
 import {
-    GET_DATA,
+    GET_DATA, OPEN_USER_FORM,
     SELECT_COLUMN,
     SORT_COLUMN,
     START,
@@ -13,7 +13,8 @@ const initialState = {
     sort: {
         direction: null,
         columnName: ''
-    }
+    },
+    userFormOpen: false
 };
 
 export default (rows = initialState, action) => {
@@ -53,6 +54,12 @@ export default (rows = initialState, action) => {
                 ...rows,
                 rowsList: payload
             };
+
+        case OPEN_USER_FORM:
+            return {
+                ...rows,
+                userFormOpen: !rows.userFormOpen
+            }
 
         default:
             return rows

@@ -7,7 +7,6 @@ class User extends Component {
     render() {
 
         const {user, show} = this.props;
-        console.log(user.address);
 
         if (!show) return null;
 

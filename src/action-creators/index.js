@@ -5,7 +5,7 @@ import {
     SEARCH,
     START,
     SUCCESS,
-    SHOW_USER
+    SHOW_USER, OPEN_USER_FORM
 } from '../constants'
 
 export function getSmallData() {
@@ -62,5 +62,11 @@ export function showUser(user) {
     return {
         type: SHOW_USER,
         payload: user
+    }
+}
+
+export function showUserForm() {
+    return {
+        type: OPEN_USER_FORM,
     }
 }

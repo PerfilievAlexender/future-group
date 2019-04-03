@@ -14,6 +14,8 @@ export const userData = (state) => state.user.userData;
 
 export const userActive = (state) => state.user.active;
 
+export const userFormShow = (state) => state.rows.userFormOpen;
+
 export const foundRows = createSelector(allRows, searchValue, (rows, search) => {
     if (search) {
         return rows.filter((row) => {
