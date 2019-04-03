@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getSmallData} from '../../action-creators'
-import {rowsSmallData} from '../../selectors';
-import Row from '../row'
+import {getSmallData, selectColumn, sortRows} from '../../action-creators'
+import {filtredRows, sortOrder} from '../../selectors';
+import Row from '../row';
+import {INCREASE, DECREASE} from '../../constants'
 import './style.css';
 
 
@@ -14,40 +15,65 @@ class Table extends Component {
 
         const rows = data.map((row) => {
             return <Row
-                key={row.id}
+                key={row.id + Math.random()}
                 row={row}
             />
         });
 
-        const dataRows = rows ? rows : null;
+        if (!rows) return <h1>...Loading</h1>
 
         return (
             <table className='table'>
                 <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>firstName</th>
-                        <th>lastName</th>
-                        <th>email</th>
-                        <th>phone</th>
+                    <tr onClick = {this.onHandleClick}>
+                        <th><button
+                                value = 'id'
+                            >id</button>
+                        </th>
+                        <th><button
+                                value = 'firstName'
+                            >firstName</button>
+                        </th>
+                        <th><button
+                                value = 'lastName'
+                            >lastName</button>
+                        </th>
+                        <th><button
+                                value = 'email'
+                            >email</button>
+                        </th>
+                        <th><button
+                                value = 'phone'
+                            >phone</button>
+                        </th>
                     </tr>
-                    {dataRows}
+                    {rows}
                 </thead>
             </table>
         );
     };
 
+    onHandleClick = (evt) => {
+        const {selectColumn, data, sortRows, sortOrder} = this.props;
+
+        let sortOrderColumn = sortOrder !== INCREASE ? INCREASE : DECREASE;
+
+        selectColumn(evt.target.value, sortOrderColumn);
+        sortRows(data)
+    };
+
     componentDidMount() {
         const {getSmallData} = this.props;
-
         getSmallData();
     };
+
 }
 
 
 export default connect(
     (store) => ({
-        data: rowsSmallData(store)
+        data: filtredRows(store),
+        sortOrder: sortOrder(store) 
     }),
-    {getSmallData}
+    {getSmallData, selectColumn, sortRows}
 )(Table);

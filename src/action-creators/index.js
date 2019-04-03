@@ -1,4 +1,8 @@
-import {GET_SMALL_DATA} from '../constants'
+import {
+    GET_SMALL_DATA,
+    SELECT_COLUMN,
+    SORT_COLUMN
+} from '../constants'
 
 export function getSmallData() {
 
@@ -20,4 +24,21 @@ export function getSmallData() {
             });
     };
 
+}
+
+export function selectColumn(columnName, sortOrderColumn) {
+    return {
+        type: SELECT_COLUMN,
+        payload: {
+            name: columnName,
+            sort: sortOrderColumn
+        }
+    }
+}
+
+export function sortRows(sortedRows) {
+    return {
+        type: SORT_COLUMN,
+        payload: sortedRows
+    }
 }
