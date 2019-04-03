@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {getSmallData, selectColumn, sortRows} from '../../action-creators'
 import {filteredRows, sortOrder, loadingData} from '../../selectors';
 import Row from '../row';
-import Loader from '../loader'
-import {INCREASE, DECREASE} from '../../constants'
+import Loader from '../loader';
+import {INCREASE, DECREASE} from '../../constants';
 import './style.css';
 
 
@@ -26,7 +26,7 @@ class Table extends Component {
         return (
             <table className='table'>
                 <thead>
-                    <tr onClick = {this.onHandleClick}>
+                    <tr onClick = {this.onHandleClickSort}>
                         <th><button
                                 value = 'id'
                             >id</button>
@@ -54,7 +54,7 @@ class Table extends Component {
         );
     };
 
-    onHandleClick = (evt) => {
+    onHandleClickSort = (evt) => {
         const {selectColumn, data, sortRows, sortOrder} = this.props;
 
         let sortOrderColumn = sortOrder !== INCREASE ? INCREASE : DECREASE;

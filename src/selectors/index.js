@@ -10,6 +10,10 @@ export const loadingData = (state) => state.rows.loading;
 
 export const searchValue = (state) => state.search;
 
+export const userData = (state) => state.user.userData;
+
+export const userActive = (state) => state.user.active;
+
 export const foundRows = createSelector(allRows, searchValue, (rows, search) => {
     if (search) {
         return rows.filter((row) => {

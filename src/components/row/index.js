@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {showUser} from "../../action-creators";
 import './style.css';
 
 
@@ -9,7 +11,10 @@ class Row extends Component {
         const {row} = this.props;
 
         return (
-            <tr className='row'>
+            <tr
+                className='row'
+                onClick = {this.onHandleClickRead}
+            >
                 <td>{row.id}</td>
                 <td>{row.firstName}</td>
                 <td>{row.lastName}</td>
@@ -18,7 +23,16 @@ class Row extends Component {
             </tr>
         );
     };
+
+    onHandleClickRead = () => {
+        const {row, showUser} = this.props;
+
+        showUser(row)
+    };
 }
 
 
-export default Row;
+export default connect(
+    null,
+    {showUser}
+)(Row);

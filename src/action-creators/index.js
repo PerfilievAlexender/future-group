@@ -2,7 +2,10 @@ import {
     GET_DATA,
     SELECT_COLUMN,
     SORT_COLUMN,
-    SEARCH, START, SUCCESS
+    SEARCH,
+    START,
+    SUCCESS,
+    SHOW_USER
 } from '../constants'
 
 export function getSmallData() {
@@ -13,7 +16,7 @@ export function getSmallData() {
             type: GET_DATA + START
         });
 
-        fetch('http://www.filltext.com/?rows=1000&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}', {
+        fetch('http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}', {
                 method: "GET",
             }
         )
@@ -52,5 +55,12 @@ export function findRows(searchValue) {
     return {
         type: SEARCH,
         payload: searchValue
+    }
+}
+
+export function showUser(user) {
+    return {
+        type: SHOW_USER,
+        payload: user
     }
 }
