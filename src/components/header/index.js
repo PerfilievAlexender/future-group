@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Search from '../search'
 import './style.css';
 
 
@@ -8,7 +9,7 @@ class Header extends Component {
 
         return (
            <header className='header'>
-               test
+               <Search />
            </header>
         );
     };

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getSmallData, selectColumn, sortRows} from '../../action-creators'
-import {filtredRows, sortOrder} from '../../selectors';
+import {filteredRows, sortOrder, loadingData} from '../../selectors';
 import Row from '../row';
+import Loader from '../loader'
 import {INCREASE, DECREASE} from '../../constants'
 import './style.css';
 
@@ -11,7 +12,7 @@ class Table extends Component {
 
     render() {
 
-        const {data} = this.props;
+        const {data, loading} = this.props;
 
         const rows = data.map((row) => {
             return <Row
@@ -20,7 +21,7 @@ class Table extends Component {
             />
         });
 
-        if (!rows) return <h1>...Loading</h1>
+        if (loading) return <Loader/>;
 
         return (
             <table className='table'>
@@ -72,8 +73,9 @@ class Table extends Component {
 
 export default connect(
     (store) => ({
-        data: filtredRows(store),
-        sortOrder: sortOrder(store) 
+        data: filteredRows(store),
+        sortOrder: sortOrder(store),
+        loading: loadingData(store)
     }),
     {getSmallData, selectColumn, sortRows}
 )(Table);

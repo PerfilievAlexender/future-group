@@ -1,7 +1,9 @@
 import {
-    GET_SMALL_DATA,
+    GET_DATA,
     SELECT_COLUMN,
-    SORT_COLUMN
+    SORT_COLUMN,
+    START,
+    SUCCESS,
 } from '../constants';
 
 const initialState = {
@@ -17,14 +19,24 @@ const initialState = {
 export default (rows = initialState, action) => {
 
     const {payload, type} = action;
-    console.log('reduser', payload)
+
     switch (type) {
         
-        case GET_SMALL_DATA:
+        case GET_DATA + START:
             return {
                 ...rows,
-                rowsList: payload
-            }
+                loading: true,
+                loaded: false
+            };
+
+        case GET_DATA + SUCCESS:
+            return {
+                ...rows,
+                rowsList: payload,
+                loading: false,
+                loaded: true
+            };
+
         case SELECT_COLUMN:
             return {
                 ...rows,
@@ -33,14 +45,15 @@ export default (rows = initialState, action) => {
                    columnName: payload.name,
                    direction: payload.sort 
                 }   
-            }
+            };
 
         case SORT_COLUMN:
             
             return {
                 ...rows,
                 rowsList: payload
-            }
+            };
+
         default:
             return rows
     }
