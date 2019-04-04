@@ -1,0 +1,23 @@
+.pages {
+    display: flex;
+    justify-content: center;
+    
+    list-style: none;
+    padding: 0;
+
+}
+
+.pages__page {
+    cursor: pointer;
+    margin-right: 20px;
+
+    font-size: 20px;
+} 
+
+.pages__page:hover {
+    color: blue;
+} 
+
+.pages__page:active {
+    color: red;
+} 

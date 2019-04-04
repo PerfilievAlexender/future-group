@@ -21,7 +21,6 @@ const initialState = {
 export default (rows = initialState, action) => {
 
     const {payload, type} = action;
-    console.log(type, payload)
 
     switch (type) {
         

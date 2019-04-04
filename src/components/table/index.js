@@ -7,18 +7,23 @@ import Loader from '../loader';
 import {INCREASE, DECREASE} from '../../constants';
 import './style.css';
 import AddUserForm from "../addUserForm";
+import PageSwitcher from '../pageSwitcher'
 
 class Table extends Component {
 
     render() {
 
         const {data, loading} = this.props;
+        const a = 0;
+        const b = 10;
 
-        const rows = data.map((row) => {
-            return <Row
-                key={row.id + Math.random()}
-                row={row}
-            />
+        const rows = data.slice([a], [b]).map((row) => {
+            return (
+                <Row
+                    key={row.id + Math.random()}
+                    row={row}
+                />
+            )
         });
 
         if (loading) return <Loader/>;
@@ -29,6 +34,7 @@ class Table extends Component {
                 <button
                     onClick={this.onShowAddUserForm}
                 >Добавить</button>
+                <PageSwitcher/>
                 <table className='table'>
                     <thead>
                     <tr onClick = {this.onHandleClickSort}>
