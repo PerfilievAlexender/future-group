@@ -1,23 +1,32 @@
 .pages {
     display: flex;
     justify-content: center;
-    
-    list-style: none;
-    padding: 0;
 
+    list-style: none;
+
+    background-color: #edeef0;
+    padding-bottom: 50px;
+    padding-top: 50px;
+
+}
+
+.pages__page:first-child {
+
+    margin-right: 20px;
 }
 
 .pages__page {
     cursor: pointer;
-    margin-right: 20px;
-
     font-size: 20px;
-} 
+    padding-left: 50px;
+    padding-right: 50px;
+}
 
 .pages__page:hover {
-    color: blue;
-} 
+    opacity: 0.5;
+}
 
 .pages__page:active {
-    color: red;
-} 
+
+}
+

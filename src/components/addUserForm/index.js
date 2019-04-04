@@ -77,7 +77,7 @@ class AddUserForm extends Component {
                     </label>
                     <label htmlFor="addUserFormPhone"><strong>Phone</strong>
                         <input
-                            type="text"
+                            type="number"
                             onChange={this.onHandleChangePhone}
                             id='addUserFormPhone'
                             name='addUserFormPhone'
@@ -89,7 +89,7 @@ class AddUserForm extends Component {
 
                     <button
                         type='submit'
-                        className="addUserForm__send-form"
+                        className="addUserForm__send-form btn"
                         onClick={this.onSubmit}
                     >
                         Войти
@@ -137,11 +137,19 @@ class AddUserForm extends Component {
 
     onSubmit = (evt) => {
 
-        const {showUserForm, addNewUser} = this.props
+        const {showUserForm, addNewUser} = this.props;
+        const newUser = this.state;
+        newUser.address = {};
+        newUser.description = '';
+
 
         evt.preventDefault();
 
-        addNewUser([this.state]);
+
+
+        console.log(this.state, 'add user');
+
+        addNewUser([newUser]);
         showUserForm();
 
         this.setState({

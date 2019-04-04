@@ -5,10 +5,13 @@ import {
     SEARCH,
     START,
     SUCCESS,
-    SHOW_USER, OPEN_USER_FORM, ADD_NEW_USER
+    SHOW_USER,
+    OPEN_USER_FORM,
+    ADD_NEW_USER,
+    PAGE
 } from '../constants'
 
-export function getSmallData() {
+export function getData() {
 
     return (dispatch) => {
 
@@ -72,10 +75,16 @@ export function showUserForm() {
 }
 
 export function addNewUser(newUser) {
-    console.log('ac', newUser)
     return {
         type: ADD_NEW_USER,
         payload: newUser
+    }
+}
+
+export function newPage(page) {
+    return {
+        type: PAGE,
+        payload: page
     }
 }
 

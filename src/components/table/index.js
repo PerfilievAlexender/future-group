@@ -1,23 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getSmallData, selectColumn, showUserForm, sortRows} from '../../action-creators'
-import {filteredRows, sortOrder, loadingData} from '../../selectors';
+import {getData, selectColumn, sortRows} from '../../action-creators'
+import {filteredRows, sortOrder, loadingData, rowsOnPage} from '../../selectors';
 import Row from '../row';
 import Loader from '../loader';
 import {INCREASE, DECREASE} from '../../constants';
-import './style.css';
 import AddUserForm from "../addUserForm";
-import PageSwitcher from '../pageSwitcher'
+import './style.css';
 
 class Table extends Component {
 
     render() {
-
-        const {data, loading} = this.props;
-        const a = 0;
-        const b = 10;
-
-        const rows = data.slice([a], [b]).map((row) => {
+        const {data, loading, pageRows} = this.props;
+        const rows = data.slice([pageRows.begin], [pageRows.end]).map((row) => {
             return (
                 <Row
                     key={row.id + Math.random()}
@@ -29,34 +24,35 @@ class Table extends Component {
         if (loading) return <Loader/>;
 
         return (
-            <section className='table-wrapper'>
+            <section className='table'>
                 <AddUserForm/>
-                <button
-                    onClick={this.onShowAddUserForm}
-                >Добавить</button>
-                <PageSwitcher/>
-                <table className='table'>
+                <table className='table__area'>
                     <thead>
                     <tr onClick = {this.onHandleClickSort}>
                         <th><button
                             value = 'id'
-                        >id</button>
+                            className='table__btn'
+                        >ID</button>
                         </th>
                         <th><button
                             value = 'firstName'
-                        >firstName</button>
+                            className='table__btn'
+                        >First name</button>
                         </th>
                         <th><button
                             value = 'lastName'
-                        >lastName</button>
+                            className='table__btn'
+                        >Last name</button>
                         </th>
                         <th><button
                             value = 'email'
-                        >email</button>
+                            className='table__btn'
+                        >Email</button>
                         </th>
                         <th><button
                             value = 'phone'
-                        >phone</button>
+                            className='table__btn'
+                        >Phone</button>
                         </th>
                     </tr>
                     {rows}
@@ -68,21 +64,18 @@ class Table extends Component {
 
     onHandleClickSort = (evt) => {
         const {selectColumn, data, sortRows, sortOrder} = this.props;
-
         let sortOrderColumn = sortOrder !== INCREASE ? INCREASE : DECREASE;
 
         selectColumn(evt.target.value, sortOrderColumn);
-        sortRows(data)
+        sortRows(data);
     };
 
-    onShowAddUserForm = () => {
-        const {showUserForm} = this.props;
-        showUserForm()
-    };
+
 
     componentDidMount() {
-        const {getSmallData} = this.props;
-        getSmallData();
+        const {getData} = this.props;
+
+        getData();
     };
 
 }
@@ -92,7 +85,8 @@ export default connect(
     (store) => ({
         data: filteredRows(store),
         sortOrder: sortOrder(store),
-        loading: loadingData(store)
+        loading: loadingData(store),
+        pageRows: rowsOnPage(store),
     }),
-    {getSmallData, selectColumn, sortRows, showUserForm}
+    {getData, selectColumn, sortRows}
 )(Table);

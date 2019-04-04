@@ -19,3 +19,5 @@ export const SHOW_USER = 'SHOW_USER';
 export const OPEN_USER_FORM = 'OPEN_USER_FORM';
 
 export const ADD_NEW_USER = 'ADD_NEW_USER';
+
+export const PAGE = 'PAGE';

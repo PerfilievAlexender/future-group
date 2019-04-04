@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {findRows} from '../../action-creators'
+import {findRows} from '../../action-creators';
 import './style.css';
 
 class Search extends Component {
@@ -18,8 +18,9 @@ class Search extends Component {
                     value={this.state.searchValue}
                 />
                 <button
+                    className='search__button  btn'
                     onClick={this.onHandleClick}
-                >найти</button>
+                >Найти</button>
             </div>
         )
     };
