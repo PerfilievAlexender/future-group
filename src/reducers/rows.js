@@ -4,6 +4,7 @@ import {
     SORT_COLUMN,
     START,
     SUCCESS,
+    ADD_NEW_USER
 } from '../constants';
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
 export default (rows = initialState, action) => {
 
     const {payload, type} = action;
+    console.log(type, payload)
 
     switch (type) {
         
@@ -59,6 +61,13 @@ export default (rows = initialState, action) => {
             return {
                 ...rows,
                 userFormOpen: !rows.userFormOpen
+            }
+
+        case ADD_NEW_USER:
+            rows.rowsList.unshift(...payload)
+            return {
+                ...rows,
+                rowsList: [...rows.rowsList]
             }
 
         default:

@@ -5,7 +5,7 @@ import {
     SEARCH,
     START,
     SUCCESS,
-    SHOW_USER, OPEN_USER_FORM
+    SHOW_USER, OPEN_USER_FORM, ADD_NEW_USER
 } from '../constants'
 
 export function getSmallData() {
@@ -70,3 +70,12 @@ export function showUserForm() {
         type: OPEN_USER_FORM,
     }
 }
+
+export function addNewUser(newUser) {
+    console.log('ac', newUser)
+    return {
+        type: ADD_NEW_USER,
+        payload: newUser
+    }
+}
+

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './style.css';
 import {connect} from 'react-redux';
-import {showUserForm} from '../../action-creators';
+import {showUserForm, addNewUser} from '../../action-creators';
 import {userFormShow} from '../../selectors'
 
 
@@ -27,7 +27,7 @@ class AddUserForm extends Component {
                 <div className='addUserForm__container'>
                     <button
                         className='addUserForm__close'
-                        onClick={this.onChange}
+                        onClick={this.onCloseForm}
                     >закрыть
                     </button>
                     <h2 className='addUserForm__title'>Добавить пользователя</h2>
@@ -90,7 +90,7 @@ class AddUserForm extends Component {
                     <button
                         type='submit'
                         className="addUserForm__send-form"
-                        onClick={this.onAddData}
+                        onClick={this.onSubmit}
                     >
                         Войти
                     </button>
@@ -130,21 +130,19 @@ class AddUserForm extends Component {
         })
     };
 
-    onChange = () => {
+    onCloseForm = () => {
         const {showUserForm} = this.props;
         showUserForm();
     };
 
-    onAddData = (evt) => {
+    onSubmit = (evt) => {
+
+        const {showUserForm, addNewUser} = this.props
 
         evt.preventDefault();
 
-        const {} = this.props;
-
-        if (this.state.id && this.state.firstName && this.state.lastName && this.state.email && this.state.phone) {
-
-        }
-
+        addNewUser([this.state]);
+        showUserForm();
 
         this.setState({
             id: '',
@@ -153,8 +151,6 @@ class AddUserForm extends Component {
             email: '',
             phone: ''
         });
-
-
     };
 }
 
@@ -164,4 +160,4 @@ export default connect(
         openForm: userFormShow(store)
     })
     ,
-    {showUserForm})(AddUserForm)
+    {showUserForm, addNewUser})(AddUserForm)
