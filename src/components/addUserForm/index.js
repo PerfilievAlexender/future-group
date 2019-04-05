@@ -92,7 +92,7 @@ class AddUserForm extends Component {
                         className="addUserForm__send-form btn"
                         onClick={this.onSubmit}
                     >
-                        Войти
+                        Добавить
                     </button>
                 </div>
             </div>
@@ -137,28 +137,25 @@ class AddUserForm extends Component {
 
     onSubmit = (evt) => {
 
+        evt.preventDefault();
+
         const {showUserForm, addNewUser} = this.props;
         const newUser = this.state;
         newUser.address = {};
         newUser.description = '';
 
+        if (this.state.id && this.state.firstName && this.state.lastName && this.state.email && this.state.phone) {
+            addNewUser([newUser]);
+            showUserForm();
 
-        evt.preventDefault();
-
-
-
-        console.log(this.state, 'add user');
-
-        addNewUser([newUser]);
-        showUserForm();
-
-        this.setState({
-            id: '',
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: ''
-        });
+            this.setState({
+                id: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                phone: ''
+            });
+        }
     };
 }
 

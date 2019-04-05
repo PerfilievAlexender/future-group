@@ -6,6 +6,7 @@
 
 .table__area {
     margin: 0 auto;
+    width: 70%;
 
     box-sizing: border-box;
     border: 1px solid #777777;
@@ -17,6 +18,8 @@
 
 .table__area th {
     border: 1px solid #777777;
+    width: 20%;
+
 }
 
 .table__btn {
